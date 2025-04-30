@@ -1,0 +1,194 @@
+/* Background Gradient */
+body {
+    background: linear-gradient(to right, skyblue, purple);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    color: white;
+    margin: 0;
+}
+
+/* Main App Container */
+#app {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.8); /* Light background for content */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+h1 {
+    color: #333;
+    font-size: 2em;
+}
+
+h2 {
+    color: #444;
+}
+
+h3 {
+    color: #444;
+}
+
+h4 {
+    color: #555;
+}
+
+/* Animated University Name */
+#university-name {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FF6347;
+    animation: fadeInOut 5s infinite;
+}
+
+/* Animation for University Name */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+/* Contact and Knowledge Section */
+#contact-support, #knowledge-about {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Contact Support Section */
+#contact-support h3 {
+    color: #4CAF50;
+}
+
+/* Knowledge About Manovikas */
+#knowledge-about h3 {
+    color: #FF6347;
+}
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, skyblue, purple); /* Background gradient */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* University Name Animation */
+.university-name {
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.animated-text {
+    animation: fadeIn 3s ease-in-out infinite;
+}
+
+/* Mentality Growth Section */
+.mentality-growth {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.mentality-title {
+    font-size: 24px;
+    color: green;
+}
+
+.mentality-text {
+    font-size: 18px;
+    color: green;
+    line-height: 1.6;
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Support Form */
+.support {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#support-form {
+    display: inline-block;
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#support-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#support-form input, #support-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#support-form button {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#support-form button:hover {
+    background-color: darkgreen;
+}
+
+/* Animation for University Name */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

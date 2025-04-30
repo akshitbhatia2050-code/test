@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Institute Dashboard</h1>
+    </header>
+    <main>
+        <div class="dashboard">
+            <h2>Manage Assignments</h2>
+            <form id="assignmentForm">
+                <input type="text" id="studentName" placeholder="Student Name" required>
+                <input type="text" id="title" placeholder="Assignment Title" required>
+                <textarea id="description" placeholder="Assignment Description" required></textarea>
+                <button type="submit">Assign</button>
+            </form>
+            <h3>All Assignments</h3>
+            <ul id="all-assignments">
+                <!-- Assignment data will load dynamically -->
+            </ul>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

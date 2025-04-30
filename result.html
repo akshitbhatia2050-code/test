@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Result - P.A.T.-C.W.C.P.</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Progressive Assessment Tool for Children With C.P. (P.A.T.-C.W.C.P.)</h2>
+
+    <div class="container">
+        <h3>Assessment Result</h3>
+        <p><strong>Child Name:</strong> <span id="child-name"></span></p>
+        <p><strong>Assessment Date:</strong> <span id="assessment-date"></span></p>
+        <p><strong>Score:</strong> <span id="score"></span>/20</p>
+        <p><strong>Percentage:</strong> <span id="percentage"></span>%</p>
+        <p><strong>Classification:</strong> <span id="classification"></span></p>
+
+        <h3>Classification Categories:</h3>
+        <ul>
+            <li><strong>80-100%</strong> - Normal</li>
+            <li><strong>60-80%</strong> - Mild</li>
+            <li><strong>40-60%</strong> - Moderate</li>
+            <li><strong>20-40%</strong> - Severe</li>
+            <li><strong>0-20%</strong> - Profound</li>
+        </ul>
+
+        <button onclick="window.location.href='assessment.html'">Retake Assessment</button>
+        <button onclick="window.location.href='graph.html'">View Graph</button>
+    </div>
+
+    <script>
+        // Retrieve assessment results from localStorage
+        let score = localStorage.getItem("assessmentScore");
+        let percentage = localStorage.getItem("assessmentPercentage");
+        let classification = localStorage.getItem("classification");
+        let childName = localStorage.getItem("childName") || "Not Available";
+        let assessmentDate = localStorage.getItem("assessmentDate") || "Not Available";
+
+        // Display results
+        document.getElementById("score").innerText = score || "0";
+        document.getElementById("percentage").innerText = percentage || "0";
+        document.getElementById("classification").innerText = classification || "Not Available";
+        document.getElementById("child-name").innerText = childName;
+        document.getElementById("assessment-date").innerText = assessmentDate;
+    </script>
+</body>
+</html>

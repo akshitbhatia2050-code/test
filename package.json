@@ -1,0 +1,13 @@
+{
+    "name": "pat-cwcp",
+    "version": "1.0.0",
+    "description": "Progressive Assessment Tool for Children With C.P.",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^6.0.0"
+    }
+}

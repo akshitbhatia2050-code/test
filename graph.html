@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Graph - P.A.T.-C.W.C.P.</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Progressive Assessment Tool for Children With C.P. (P.A.T.-C.W.C.P.)</h2>
+
+    <div class="graph-container">
+        <h3>Assessment Score Analysis</h3>
+        <canvas id="assessmentChart"></canvas>
+    </div>
+
+    <h3>Instructions:</h3>
+    <ul>
+        <li>If the child scores **0-20%**, they are classified under the **Profound** category.</li>
+        <li>If the child scores **20-40%**, they are classified under the **Severe** category.</li>
+        <li>If the child scores **40-60%**, they are classified under the **Moderate** category.</li>
+        <li>If the child scores **60-80%**, they are classified under the **Mild** category.</li>
+        <li>If the child scores **80-100%**, they are classified as **Normal**.</li>
+    </ul>
+
+    <script>
+        // Retrieve data from localStorage
+        let score = localStorage.getItem("assessmentScore");
+        let percentage = (score / 20) * 100;
+
+        // Chart Data
+        let ctx = document.getElementById("assessmentChart").getContext("2d");
+        let assessmentChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Profound (0-20%)", "Severe (20-40%)", "Moderate (40-60%)", "Mild (60-80%)", "Normal (80-100%)"],
+                datasets: [{
+                    label: "Score Percentage",
+                    data: [percentage],
+                    backgroundColor: ["red", "orange", "yellow", "blue", "green"],
+                    borderColor: "black",
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+
+    <button onclick="window.location.href='result.html'">Back to Result</button>
+</body>
+</html>
