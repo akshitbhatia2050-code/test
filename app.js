@@ -1,3 +1,21 @@
+// app.js
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 8000;
+
+// Serve static files (like your HTML pages)
+app.use(express.static('public'));
+
+// Root route
+app.get('/', (req, res) => {
+  res.send('🚀 Server is live on Koyeb!');
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
+});
+
+-------------------------------------------------------------------------------------
 const authButton = document.getElementById('auth-btn');
 const formTitle = document.getElementById('form-title');
 const toggleLink = document.getElementById('toggle-link');
