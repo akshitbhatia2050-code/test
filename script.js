@@ -3,83 +3,106 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.querySelector('#login-form');
     const assessmentForm = document.querySelector('#assessment-form');
 
-    // **Register Form Submission**
-    if (registerForm) {
-        registerForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formData = {
-                role: document.getElementById('role').value,
-                name: document.getElementById('name').value,
-                dob: document.getElementById('dob').value,
-                age: document.getElementById('age').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                password: document.getElementById('password').value
-            };
-
-            fetch('/register', {
+    // Helper: JSON fetch with error handling
+    async function fetchJSON(url, data) {
+        try {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                if (data.success) {
-                    window.location.href = "login.html";
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
+            }
+
+            return await response.json();
+        } catch (err) {
+            console.error("Fetch error:", err.message);
+            alert("An error occurred: " + err.message);
+            return null;
+        }
+    }
+
+    // **Register Form Submission**
+    if (registerForm) {
+        registerForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const role = document.getElementById('role')?.value;
+            const name = document.getElementById('name')?.value;
+            const dob = document.getElementById('dob')?.value;
+            const age = document.getElementById('age')?.value;
+            const email = document.getElementById('email')?.value;
+            const phone = document.getElementById('phone')?.value;
+            const password = document.getElementById('password')?.value;
+
+            if (!role || !email || !password) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const formData = { role, name, dob, age, email, phone, password };
+            const data = await fetchJSON('/register', formData);
+
+            if (data && data.success) {
+                alert(data.message || "Registered successfully!");
+                window.location.href = "./login.html";
+            }
         });
     }
 
     // **Login Form Submission**
     if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
+        loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const loginData = {
-                role: document.getElementById('login-role').value,
-                email: document.getElementById('login-email').value,
-                password: document.getElementById('login-password').value
-            };
+            const role = document.getElementById('login-role')?.value;
+            const email = document.getElementById('login-email')?.value;
+            const password = document.getElementById('login-password')?.value;
 
-            fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(loginData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Login Successful!");
-                    localStorage.setItem("userId", data.userId);
-                    localStorage.setItem("userRole", data.role);
-                    window.location.href = "assessment.html";
-                } else {
-                    alert("Invalid Credentials! Please try again.");
-                }
-            })
-            .catch(error => console.error('Error:', error));
+            if (!role || !email || !password) {
+                alert("Please enter email, role, and password.");
+                return;
+            }
+
+            const loginData = { role, email, password };
+            const data = await fetchJSON('/login', loginData);
+
+            if (data && data.success) {
+                alert("Login Successful!");
+                localStorage.setItem("userId", data.userId);
+                localStorage.setItem("userRole", data.role);
+                window.location.href = "./assessment.html";
+            } else {
+                alert("Invalid Credentials! Please try again.");
+            }
         });
     }
 
     // **Assessment Form Submission**
     if (assessmentForm) {
-        assessmentForm.addEventListener('submit', function (e) {
+        assessmentForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             let score = 0;
             const totalQuestions = 20;
+
             for (let i = 1; i <= totalQuestions; i++) {
                 const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selectedAnswer && selectedAnswer.value === "yes") {
+                if (selectedAnswer?.value === "yes") {
                     score++;
                 }
             }
 
             const userId = localStorage.getItem("userId");
+            if (!userId) {
+                alert("User not logged in.");
+                window.location.href = "./login.html";
+                return;
+            }
+
             const percentage = (score / totalQuestions) * 100;
 
             let classification = "";
@@ -89,27 +112,29 @@ document.addEventListener('DOMContentLoaded', function () {
             else if (percentage >= 20) classification = "Severe";
             else classification = "Profound";
 
-            fetch('/save-assessment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, score, percentage, classification })
-            })
-            .then(response => response.json())
-            .then(data => {
+            const payload = { userId, score, percentage, classification };
+            const data = await fetchJSON('/save-assessment', payload);
+
+            if (data) {
                 alert("Assessment Submitted Successfully!");
                 localStorage.setItem("assessmentScore", score);
-                localStorage.setItem("assessmentPercentage", percentage);
+                localStorage.setItem("assessmentPercentage", percentage.toFixed(2));
                 localStorage.setItem("classification", classification);
-                window.location.href = "result.html";
-            })
-            .catch(error => console.error('Error:', error));
+                window.location.href = "./result.html";
+            }
         });
     }
 
     // **Display Results in result.html**
     if (window.location.pathname.includes("result.html")) {
-        document.getElementById("score").innerText = localStorage.getItem("assessmentScore") || "0";
-        document.getElementById("percentage").innerText = localStorage.getItem("assessmentPercentage") || "0";
-        document.getElementById("classification").innerText = localStorage.getItem("classification") || "Not Available";
+        const scoreEl = document.getElementById("score");
+        const percEl = document.getElementById("percentage");
+        const classEl = document.getElementById("classification");
+
+        if (scoreEl && percEl && classEl) {
+            scoreEl.innerText = localStorage.getItem("assessmentScore") || "0";
+            percEl.innerText = localStorage.getItem("assessmentPercentage") || "0";
+            classEl.innerText = localStorage.getItem("classification") || "Not Available";
+        }
     }
 });
