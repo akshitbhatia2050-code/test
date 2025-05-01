@@ -4,7 +4,7 @@
     "description": "Progressive Assessment Tool for Children With C.P.",
     "main": "server/server.js",
    "scripts": {
-  "start": "node app.js"
+  "start": "node server/server.js"
 },
     "dependencies": {
         "express": "^4.17.1",
